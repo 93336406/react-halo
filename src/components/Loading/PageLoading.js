@@ -1,8 +1,8 @@
 import React from 'react';
-import './PageLoading.less'
+import {Spin} from 'antd';
 
-/**
- * 加载效果示例
- */
-export default ({loading, style = 'style1'}) => 
-  loading ? <div className={`loading-spinner loading-spinner-${style}`}></div> : null;
+export default () => (
+    <div style={{paddingTop: 100, textAlign: 'center'}}>
+        <Spin size="large"/>
+    </div>
+);
