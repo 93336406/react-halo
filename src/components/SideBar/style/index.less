@@ -1,0 +1,142 @@
+@import "~antd/lib/style/themes/default.less";
+@import "./darkgrey.less";
+// 左侧边栏
+.sidebar-left {
+  background-color: #001529;
+  user-select: none;
+  position: relative;
+  z-index: 2;
+
+  &.sidebar-left-sm {
+    .ant-menu {
+      &.ant-menu-inline-collapsed {
+        width: 60px;
+        > .ant-menu-submenu .ant-menu-submenu-title, .ant-menu-item {
+          padding: 0 20px !important;
+          margin: 0;
+          .anticon {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+    &.sidebar-left-close {
+      .ant-menu {
+        transform: translate3d(-2000px, 0, 0);
+      }
+    }
+  }
+
+  .ant-menu {
+    > .ant-menu-item,
+    > .ant-menu-submenu > .ant-menu-submenu-title {
+      margin: 0;
+      height: 48px;
+      line-height: 48px;
+      width: 100%;
+    }
+  }
+
+  .sidebar-toggle-mini {
+    text-align: center;
+  }
+
+  .sidebar-header {
+    height: @layout-header-height;
+    overflow: hidden;
+    position: relative;
+    line-height: 64px;
+    transition: all .3s;
+    background: #ffffff;
+    text-align: center;
+    img {
+      width: 144px;
+      height: 28px;
+      margin: 0 auto;
+    }
+  }
+  &.darkgrey,
+  &.dark {
+    .sidebar-header {
+      .userlogged .user-details > span {
+        color: #e2e2e2;
+      }
+      .ant-select-selection {
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #616574;
+        font-size: 12px;
+        .ant-select-arrow {
+          color: #616574;
+        }
+      }
+    }
+  }
+  &.darkgrey {
+    background-color: #30363e;
+    .ant-menu {
+      border-right: 0;
+      background: #30363e;
+      &.ant-menu-sub {
+        background-color: #282d33;
+      }
+    }
+  }
+
+  &.light {
+    background-color: #fff;
+    .ant-menu {
+      border-right: 0;
+      background: #fff;
+      &.ant-menu-sub {
+        background-color: #fafafa;
+      }
+    }
+  }
+
+  &.grey {
+    background-color: #fafafa;
+    .ant-menu {
+      border-right: 0;
+      background: #fafafa;
+      &.ant-menu-sub {
+        background-color: #f4f4f4;
+      }
+    }
+  }
+}
+
+&.grey,
+&.light {
+  border-right: 1px solid #e8e8e8;
+  .ant-menu-root.ant-menu {
+    position: relative;
+  }
+}
+
+.sidebar-header-dropdown {
+  font-size: 13px;
+}
+
+// 左抽屉
+.left-sidebar-drawer {
+  .ant-drawer-close-x {
+    display: none;
+  }
+  .ant-drawer-body {
+    padding: 0px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .sidebar-left {
+    min-height: 100vh;
+  }
+}
+
+.ant-menu-submenu-popup.ant-menu-darkgrey,
+.ant-menu.ant-menu-darkgrey {
+  .ant-menu-item-selected {
+    background-color: @menu-darkgrey-item-selected-bg;
+    box-shadow: 4px 0px 0px 0px @primary-color inset;
+  }
+}

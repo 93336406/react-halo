@@ -1,0 +1,46 @@
+@import "~antd/lib/style/themes/default.less";
+.basic-layout {
+  > .ant-layout.ant-layout-has-sider {
+    min-height: ~'calc(100vh - 0px)';
+  }
+  /* 应用布局&布局设置 */
+  &.full-layout {
+    // 固定所有元素，经典管理界面样式，即固定头，侧栏，面包屑
+    &.fixed.ant-layout,
+    &.fixed .full-layout.ant-layout {
+      position: absolute !important;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      .ant-layout-sider {
+        box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
+        position: relative;
+        z-index: 10;
+      }
+      > .ant-layout-sider-children {
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+    }
+    &.fixed-breadcrumbs {
+      & > .ant-layout-header {
+        box-shadow: none;
+        z-index: 2;
+      }
+      & > .ant-layout > .ant-layout-content > .ant-layout {
+        > .ant-layout-content {
+          overflow: auto;
+        }
+        > .ant-layout-header {
+          z-index: 2;
+          box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
+        }
+      }
+    }
+    .router-page,
+    .router-page > .ant-layout {
+      min-height: ~'calc(100vh - @{layout-header-height})';
+    }
+  }
+}

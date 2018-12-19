@@ -1,0 +1,129 @@
+@import "~antd/lib/style/themes/default.less";
+
+@header-hover-bg: rgba(0, 0, 0, 0.03);
+.navbar {
+  z-index: 1030;
+  margin-bottom: 0;
+  height: @layout-header-height;
+  color: #666;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+  padding-left: 0;
+  list-style: none;
+  user-select: none;
+  overflow: hidden;
+  i {
+    position: relative;
+    top: -1px;
+    vertical-align: middle;
+  }
+  // Logo
+  &.navbar-sm {
+    .navbar-branding {
+      width: 60px;
+      .navbar-brand {
+        width: 0;
+        padding-left: 0;
+      }
+    }
+  }
+  .navbar-branding {
+    position: relative;
+    overflow: hidden;
+    float: left;
+    height: @layout-header-height;
+    margin-right: 10px;
+    background-color: transparent;
+    transition: all 0.2s ease;
+    .navbar-brand {
+      color: #666;
+      height: @layout-header-height;
+      line-height: 58px;
+      padding: 0;
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: 0.6px;
+      padding-left: 15px;
+      display: inline-block;
+      overflow: hidden;
+      width: 170px;
+      b {
+        font-weight: bold;
+        padding-right: 1px;
+      }
+      img {
+        width: 35px;
+        margin-right: 10px;
+      }
+    }
+    // 左侧导航收缩按钮
+    .toggle_sidemenu_l {
+      font-size: 20px;
+      height: @layout-header-height;
+      cursor: pointer;
+      transition: all 0.3s, padding 0s;
+      padding: ~'calc((@{layout-header-height} - 20px) / 2)' 24px;
+      &:hover {
+        background: @header-hover-bg;
+      }
+    }
+  }
+  .nav > li > a {
+    color: #666;
+    font-weight: 600;
+    height: @layout-header-height;
+    position: relative;
+    display: block;
+    padding-right: 12px;
+    padding-left: 12px;
+    &:focus,
+    &:hover {
+      color: #222;
+      background-color: #f7f7f7;
+    }
+  }
+  .navbar-nav {
+    &.navbar-right {
+      float: right;
+      margin: 0 15px 0 0;
+      li {
+        float: left;
+        position: relative;
+      }
+      .account-name {
+        color: rgba(0, 0, 0, .65);
+        margin-left: 4px;
+      }
+    }
+    &.navbar-left {
+      float: left;
+      height: @layout-header-height;
+      line-height: @layout-header-height;
+      .ant-breadcrumb {
+        display: inline-block;
+        font-size: 12px;
+        .first {
+          color: #555;
+          font-size: 18px;
+        }
+        .icon {
+          position: relative;
+          font-size: 15px;
+          color: #777;
+          top: -1px;
+        }
+        a {
+          color: @primary-6;
+          &:hover {
+            color: tint(@primary-6);
+          }
+        }
+      }
+    }
+  }
+  .account-menu {
+    background-color: #fff;
+    box-shadow: @shadow-1-down;
+    border-radius: 4px;
+  }
+}
