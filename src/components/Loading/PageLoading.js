@@ -4,7 +4,7 @@ import './PageLoading.less'
 
 export default ({loading}) => {
     if (loading) {
-        return <div className={`loading-spinner`} style={{ textAlign: 'center'}}>
+        return <div className={`loading-spinner`}>
             <Spin size="large"/>
         </div>;
     } else {
