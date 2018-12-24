@@ -8,7 +8,6 @@ export default modelEnhance({
     menu: [],
     flatMenu: [],
   },
-
   effects: {
     *getMenu({ payload }, { call, put }) {
       const { status, data } = yield call(getMenu, payload);
