@@ -39,7 +39,7 @@ class Login extends Component {
                                 <b>HALO</b>
                                 <span>v2.0</span>
                             </div>
-                            <FormItem className="form-item">
+                            <FormItem className="form-item" hasFeedback>
                                 {getFieldDecorator('workspace', {
                                     initialValue: '',
                                     rules: [{required: false, message: '请输入工作区,示例cddev'}]
@@ -51,7 +51,7 @@ class Login extends Component {
                                     />
                                 )}
                             </FormItem>
-                            <FormItem className="form-item">
+                            <FormItem className="form-item" hasFeedback>
                                 {getFieldDecorator('userName', {
                                     initialValue: 'admin',
                                     rules: [{required: true, message: '请输入您的用户名，示例admin'}]
@@ -63,7 +63,7 @@ class Login extends Component {
                                     />
                                 )}
                             </FormItem>
-                            <FormItem className="form-item">
+                            <FormItem className="form-item" hasFeedback>
                                 {getFieldDecorator('password', {
                                     initialValue: 'admin',
                                     rules: [{required: true, message: '请输入您的密码，示例admin'}]

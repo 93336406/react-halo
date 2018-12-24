@@ -51,11 +51,26 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
                 children: [
                     {
                         name: '任务监控',
-                        path: '/taskMonitor',
+                        path: '/monitor/taskMonitor',
                     },
                     {
                         name: '事件监控',
-                        path: '/eventMonitor',
+                        path: '/monitor/eventMonitor',
+                    }
+                ]
+            },
+            {
+                name: '权限管理',
+                icon: 'key',
+                path: '/authorization',
+                children: [
+                    {
+                        name: '用户',
+                        path: '/authorization/user',
+                    },
+                    {
+                        name: '角色',
+                        path: '/authorization/role',
                     }
                 ]
             }

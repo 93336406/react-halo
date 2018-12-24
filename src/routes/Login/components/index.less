@@ -15,16 +15,8 @@
       border-radius: 5px;
       padding: 8px 16px;
       transition: all 0.3s ease-in-out 0s;
-      animation: login-show 1.2s cubic-bezier(0.39, 0.575, 0.565, 1);
-      -webkit-animation: login-show 1.2s cubic-bezier(0.39, 0.575, 0.565, 1);
-      -moz-animation: login-show 1.2s cubic-bezier(0.39, 0.575, 0.565, 1);
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.6);
-        -webkit-transform: translateY(-8px);
-        -ms-transform: translateY(-8px);
-        transform: translateY(-8px);
-        box-shadow: 0 2px 74px rgba(0, 0, 0, 0.15);
-      }
+      box-shadow: 0 2px 74px rgba(0, 0, 0, 0.15);
+      background-color: rgba(255, 255, 255, 0.6);
       .user-img {
         margin: 26px 0;
         font-size: 28px;
@@ -44,6 +36,9 @@
       }
       .form-item {
         margin-bottom: 32px;
+      }
+      .ant-form-item-with-help {
+        margin-bottom: 13px;
       }
       .login-form-button {
         width: 100%;

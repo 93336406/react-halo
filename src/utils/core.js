@@ -1,10 +1,8 @@
 import React from 'react';
 import dynamic from 'dva/dynamic';
-import { Route, Switch, Redirect } from 'dva/router';
-import DocumentTitle from 'react-document-title';
+import {Route, Switch, Redirect} from 'dva/router';
 import assign from 'object-assign';
 import $$ from 'cmn-utils';
-import config from '@/config';
 
 /**
  * 生成动态组件
@@ -13,11 +11,11 @@ import config from '@/config';
  * @param {*} component
  */
 export const dynamicWrapper = (app, models, component) =>
-  dynamic({
-    app,
-    models: () => models,
-    component
-  });
+    dynamic({
+        app,
+        models: () => models,
+        component
+    });
 
 /**
  * 生成一组路由
@@ -25,11 +23,11 @@ export const dynamicWrapper = (app, models, component) =>
  * @param {*} routesConfig
  */
 export const createRoutes = (app, routesConfig) => {
-  return (
-    <Switch>
-      {routesConfig(app).map(config => createRoute(app, () => config))}
-    </Switch>
-  );
+    return (
+        <Switch>
+            {routesConfig(app).map(config => createRoute(app, () => config))}
+        </Switch>
+    );
 };
 // 路由映射表
 window.dva_router_pathMap = {};
@@ -39,42 +37,34 @@ window.dva_router_pathMap = {};
  * @param {*} routesConfig
  */
 export const createRoute = (app, routesConfig) => {
-  const {
-    component: Comp,
-    path,
-    indexRoute,
-    title,
-    ...otherProps
-  } = routesConfig(app);
-  if (path && path !== '/') {
-    window.dva_router_pathMap[path] = { path, title, ...otherProps };
-  }
-  const routeProps = assign(
-    {
-      key: path || $$.randomStr(4),
-      render: props => (
-        <DocumentTitle
-          title={
-            config.htmlTitle
-              ? config.htmlTitle.replace(/{.*}/gi, title)
-              : title
-          }
-        >
-          <Comp routerData={otherProps} {...props} />
-        </DocumentTitle>
-      )
-    },
-    path && {
-      path: path
+    const {
+        component: Comp,
+        path,
+        indexRoute,
+        title,
+        ...otherProps
+    } = routesConfig(app);
+    if (path && path !== '/') {
+        window.dva_router_pathMap[path] = {path, title, ...otherProps};
     }
-  );
+    const routeProps = assign(
+        {
+            key: path || $$.randomStr(4),
+            render: props => (
+                <Comp routerData={otherProps} {...props} />
+            )
+        },
+        path && {
+            path: path
+        }
+    );
 
-  if (indexRoute) {
-    return [
-      <Redirect key={path + '_redirect'} exact from={path} to={indexRoute} />,
-      <Route {...routeProps} />
-    ];
-  }
+    if (indexRoute) {
+        return [
+            <Redirect key={path + '_redirect'} exact from={path} to={indexRoute}/>,
+            <Route {...routeProps} />
+        ];
+    }
 
-  return <Route {...routeProps} />;
+    return <Route {...routeProps} />;
 };

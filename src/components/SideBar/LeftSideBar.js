@@ -215,7 +215,6 @@ class LeftSideBar extends PureComponent {
                         {collapsed ? (<img style={{width:"36px",height:"36px",borderRadius:"36px"}} src={logo_short} alt="logo"/>) : (<img src={logo} alt="logo"/>)}
                     </header>
                     <Menu
-                        onClick={this.handleClick}
                         inlineCollapsed={collapsed}
                         onOpenChange={this.handleOpenChange}
                         mode="inline"

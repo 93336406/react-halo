@@ -1,23 +1,28 @@
 /**
  * Created by esong on 2018/12/19.
  */
-import React from 'react';
+import React, {Suspense} from 'react';
 import {connect} from 'dva';
 import {Layout} from 'antd';
 import {Switch, routerRedux} from 'dva/router';
+import DocumentTitle from 'react-document-title';
+import memoizeOne from 'memoize-one';
 import {LeftSideBar} from 'components/SideBar';
 import NavBar from 'components/NavBar';
+import PageLoading from 'components/Loading';
 import pathToRegexp from 'path-to-regexp';
 import {enquireIsMobile} from '@/utils/enquireScreen';
 import './styles/basic.less';
 import $$ from 'cmn-utils';
 import cx from 'classnames';
+import config from '@/config';
 
 const {Content, Header} = Layout;
 @connect(({global}) => ({global}))
 export default class CruxLayout extends React.PureComponent {
     constructor(props) {
         super(props);
+        this.getPageTitle = memoizeOne(this.getPageTitle);
         const user = $$.getStore('user', []);
         const theme = $$.getStore('theme', {
             leftSide: 'darkgrey', // 左边
@@ -136,6 +141,21 @@ export default class CruxLayout extends React.PureComponent {
         });
     };
 
+    getContext() {
+        const {location} = this.props;
+        return {
+            location
+        };
+    }
+
+    getPageTitle = (currentMenu) => {
+        if (!currentMenu) {
+            return config.htmlTitle;
+        }
+        const pageName = currentMenu.name;
+        return `${pageName} - ` + `${config.htmlTitle}`;
+    };
+
     render() {
         const {
             collapsedLeftSide,
@@ -149,7 +169,7 @@ export default class CruxLayout extends React.PureComponent {
         const {menu, flatMenu} = global;
         const {childRoutes} = routerData;
         const classnames = cx('basic-layout', 'full-layout', 'fixed');
-        return (
+        const layout = (
             <Layout className={classnames}>
                 <Layout>
                     <LeftSideBar
@@ -170,9 +190,9 @@ export default class CruxLayout extends React.PureComponent {
                                 collapsed={collapsedLeftSide}
                                 onCollapseLeftSide={this.onCollapseLeftSide}
                                 onExpandTopBar={this.onExpandTopBar}
-                                toggleSidebarHeader={this.toggleSidebarHeader}
                                 theme={theme.navbar}
                                 user={user}
+                                currentMenu={currentMenu}
                                 isMobile={isMobile}
                             />
                         </Header>
@@ -183,5 +203,13 @@ export default class CruxLayout extends React.PureComponent {
                 </Layout>
             </Layout>
         );
+        return (
+            <React.Fragment>
+                <DocumentTitle title={this.getPageTitle(currentMenu)}>
+                    {layout}
+                </DocumentTitle>
+                <Suspense fallback={<PageLoading/>}/>
+            </React.Fragment>
+        );
     }
-}
+};

@@ -13,16 +13,7 @@ const {Item, Divider} = Menu;
 class NavBar extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = {
-            currentRoute: this.getRouteLevel(props.location.pathname) || []
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        const currentRoute = this.getRouteLevel(nextProps.location.pathname);
-        this.setState({
-            currentRoute
-        });
+        this.state = {};
     }
 
     getRouteLevel = pathName => {
@@ -39,15 +30,14 @@ class NavBar extends PureComponent {
     };
 
     render() {
-        const {currentRoute} = this.state;
         const {
             theme,
             onCollapseLeftSide,
             collapsed,
             user,
+            currentMenu,
             isMobile
         } = this.props;
-
         const classnames = cx('navbar', {
             'navbar-sm': isMobile ? true : collapsed,
             ['bg-' + theme]: !!theme
@@ -61,33 +51,25 @@ class NavBar extends PureComponent {
                   </span>
                 </div>
                 <div className="nav navbar-nav navbar-left clearfix">
-                    {currentRoute.length ? (
-                        <Breadcrumb>
-                            <Breadcrumb.Item className="first">
-                                费用管理
-                            </Breadcrumb.Item>
-                            <Breadcrumb.Item className="icon">
-                                <Icon type="home"/>
-                            </Breadcrumb.Item>
-                            <Breadcrumb.Item>
-                                <Link to="/">首页</Link>
-                            </Breadcrumb.Item>
-                            {currentRoute.map((item, index) => (
-                                <Breadcrumb.Item key={index}>
-                                    {index === currentRoute.length - 1 ? (
-                                        item.title
-                                    ) : (
-                                        <Link to={item.path}>{item.title}</Link>
-                                    )}
-                                </Breadcrumb.Item>
-                            ))}
-                        </Breadcrumb>
-                    ) : null}
+                    <Breadcrumb>
+                        <Breadcrumb.Item className="first">
+                            费用管理
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item className="icon">
+                            <Icon type="home"/>
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item>
+                            <Link to="/">首页</Link>
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item>
+                            {currentMenu.name}
+                        </Breadcrumb.Item>
+                    </Breadcrumb>
                 </div>
                 <ul className="nav navbar-nav navbar-right clearfix">
                     <li className="dropdown">
                         <Dropdown
-                            overlay={menu}
+                            overlay={userMenu}
                             trigger={["click"]}
                         >
                             <a className="dropdown-toggle">
@@ -111,7 +93,7 @@ class NavBar extends PureComponent {
     }
 }
 
-const menu = (
+const userMenu = (
     <Menu className={cx('account-menu')} selectedKeys={[]}>
         <Item key="userCenter">
             <a className="animated animated-short">

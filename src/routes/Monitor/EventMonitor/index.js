@@ -1,7 +1,7 @@
 import {dynamicWrapper, createRoute} from '@/utils/core';
 
 const routesConfig = app => ({
-    path: '/eventMonitor',
+    path: '/monitor/eventMonitor',
     title: '事件监控',
     component: dynamicWrapper(app, [import('./model')], () => import('./components'))
 });
