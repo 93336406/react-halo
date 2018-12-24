@@ -12,7 +12,7 @@
     "eject": "react-scripts eject",
     "gh-pages": "react-app-rewired build && gh-pages -d build"
   },
-  "homepage": "https://93336406.github.io/",
+  "homepage": "https://93336406.github.io/react-halo",
   "repository": {
     "type": "git",
     "url": "https://github.com/93336406/Halo.git"
