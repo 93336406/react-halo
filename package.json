@@ -17,7 +17,7 @@
     "type": "git",
     "url": "https://github.com/93336406/Halo.git"
   },
-  "baseURL": "",
+  "baseURL": "/",
   "dependencies": {
     "@antv/data-set": "^0.8.9",
     "antd": "^3.11.2",
