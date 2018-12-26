@@ -8,7 +8,7 @@
   "password": "Password",
   "passwordTip": "Please enter your password, eg:admin",
   "home": "Home",
-  "expense": "Expense Management",
+  "expense": "Expense",
   "dashboard": "Dashboard",
   "desktop": "Monitor",
   "monitor.taskMonitor": "Task Monitor",
