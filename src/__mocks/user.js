@@ -42,19 +42,23 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
             {
                 name: '仪表盘',
                 icon: 'dashboard',
+                key: 'dashboard',
                 path: '/dashboard',
             },
             {
                 name: '监控管理',
+                key: 'desktop',
                 icon: 'desktop',
                 path: '/monitor',
                 children: [
                     {
                         name: '任务监控',
+                        key: 'monitor.taskMonitor',
                         path: '/monitor/taskMonitor',
                     },
                     {
                         name: '事件监控',
+                        key: 'monitor.eventMonitor',
                         path: '/monitor/eventMonitor',
                     }
                 ]
@@ -62,14 +66,17 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
             {
                 name: '权限管理',
                 icon: 'key',
+                key: 'authorization',
                 path: '/authorization',
                 children: [
                     {
                         name: '用户',
+                        key: 'authorization.user',
                         path: '/authorization/user',
                     },
                     {
                         name: '角色',
+                        key: 'authorization.role',
                         path: '/authorization/role',
                     }
                 ]

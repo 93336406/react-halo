@@ -7,6 +7,7 @@ import {Layout} from 'antd';
 import {Switch, routerRedux} from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import memoizeOne from 'memoize-one';
+import intl from 'react-intl-universal';
 import {LeftSideBar} from 'components/SideBar';
 import NavBar from 'components/NavBar';
 import PageLoading from 'components/Loading';
@@ -100,7 +101,7 @@ export default class CruxLayout extends React.PureComponent {
     /**
      * 顶部左侧菜单图标收缩控制
      */
-    onCollapseLeftSide = _ => {
+    onCollapseLeftSide = () => {
         const collapsedLeftSide =
             this.state.leftCollapsedWidth === 0
                 ? true
@@ -118,7 +119,7 @@ export default class CruxLayout extends React.PureComponent {
     /**
      * 完全关闭左边栏，即宽为0
      */
-    onCollapseLeftSideAll = _ => {
+    onCollapseLeftSideAll = () => {
         this.setState({
             collapsedLeftSide: true,
             leftCollapsedWidth: 0
@@ -128,7 +129,7 @@ export default class CruxLayout extends React.PureComponent {
     /**
      * 展开面包屑所在条中的多功能区
      */
-    onExpandTopBar = _ => {
+    onExpandTopBar = () => {
         this.setState({
             expandTopBar: true
         });
@@ -149,11 +150,11 @@ export default class CruxLayout extends React.PureComponent {
     }
 
     getPageTitle = (currentMenu) => {
-        if (!currentMenu) {
+        if (!currentMenu || !currentMenu.name) {
             return config.htmlTitle;
         }
-        const pageName = currentMenu.name;
-        return `${pageName} - ` + `${config.htmlTitle}`;
+        const pageName = intl.get(currentMenu.key);
+        return `${pageName} - ${config.htmlTitle}`;
     };
 
     render() {

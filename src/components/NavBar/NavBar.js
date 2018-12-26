@@ -1,32 +1,63 @@
 import React, {PureComponent} from 'react';
 import Icon from '../Icon';
+import intl from 'react-intl-universal';
 import {Menu, Dropdown, Badge, Avatar, Breadcrumb} from 'antd';
-import {Link, withRouter} from 'dva/router';
+import SelectLang from '../SelectLang';
+import {Link} from 'dva/router';
 import cx from 'classnames';
 import './style/index.less';
 
 const {Item, Divider} = Menu;
+const userMenuData = [{
+    icon: "mail",
+    title: "mail",
+    key: "mail"
+}, {
+    icon: "gear",
+    key: "setting",
+    title: "setting"
+}, {
+    icon: "ring",
+    key: "notice",
+    title: "notice"
+}, "-", {
+    icon: "poweroff",
+    key: "signOut",
+    path: "/sign/login",
+    title: "signOut"
+}];
 
 /**
  * 其本本局头部区域
  */
 class NavBar extends PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
+    getMenuItem = (menus) => {
+        return (
+            <Menu className={cx('account-menu')} selectedKeys={[]}>
+                {
+                    menus.map((m, idx) => {
+                        if (typeof m === "string") {
+                            return (<Divider key={"um_" + idx}/>)
+                        } else {
+                            if (m.path) {
+                                return (<Item key={"um_" + idx}>
+                                    <Link to={m.path}>
+                                        <Icon type={m.icon}/> {intl.get(m.key)}
+                                    </Link>
+                                </Item>)
+                            } else {
+                                return (<Item key={"um_" + idx}>
+                                    <a className="animated animated-short">
+                                        <Icon type={m.icon}/> {intl.get(m.key)}
+                                    </a>
+                                </Item>)
+                            }
+                        }
 
-    getRouteLevel = pathName => {
-        const orderPaths = [];
-        pathName.split('/').reduce((prev, next) => {
-            const path = [prev, next].join('/');
-            orderPaths.push(path);
-            return path;
-        });
-
-        return orderPaths
-            .map(item => window.dva_router_pathMap[item])
-            .filter(item => !!item);
+                    })
+                }
+            </Menu>
+        );
     };
 
     render() {
@@ -42,7 +73,6 @@ class NavBar extends PureComponent {
             'navbar-sm': isMobile ? true : collapsed,
             ['bg-' + theme]: !!theme
         });
-
         return (
             <header className={classnames}>
                 <div className="navbar-branding">
@@ -53,23 +83,23 @@ class NavBar extends PureComponent {
                 <div className="nav navbar-nav navbar-left clearfix">
                     <Breadcrumb>
                         <Breadcrumb.Item className="first">
-                            费用管理
+                            {intl.get("expense")}
                         </Breadcrumb.Item>
                         <Breadcrumb.Item className="icon">
                             <Icon type="home"/>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
-                            <Link to="/">首页</Link>
+                            <Link to="/">{intl.get("home")}</Link>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
-                            {currentMenu.name}
+                            {currentMenu.name ? intl.get(currentMenu.key) : ""}
                         </Breadcrumb.Item>
                     </Breadcrumb>
                 </div>
                 <ul className="nav navbar-nav navbar-right clearfix">
                     <li className="dropdown">
                         <Dropdown
-                            overlay={userMenu}
+                            overlay={this.getMenuItem(userMenuData)}
                             trigger={["click"]}
                         >
                             <a className="dropdown-toggle">
@@ -83,9 +113,7 @@ class NavBar extends PureComponent {
                         </Dropdown>
                     </li>
                     <li>
-                        <a className="navbar-btn">
-                            <Icon type="global" antd/>
-                        </a>
+                        <SelectLang/>
                     </li>
                 </ul>
             </header>
@@ -93,31 +121,4 @@ class NavBar extends PureComponent {
     }
 }
 
-const userMenu = (
-    <Menu className={cx('account-menu')} selectedKeys={[]}>
-        <Item key="userCenter">
-            <a className="animated animated-short">
-                <Icon type="mail"/> 信息
-                <Badge count={5} className="label"/>
-            </a>
-        </Item>
-        <Item key="userinfo">
-            <a className="animated animated-short">
-                <Icon type="gear"/> 个人设置
-            </a>
-        </Item>
-        <Item key="triggerError">
-            <a className="animated animated-short">
-                <Icon type="ring"/> 通知
-            </a>
-        </Item>
-        <Divider/>
-        <Item key="logout">
-            <Link to="/sign/login">
-                <Icon type="poweroff"/> 退出工作区
-            </Link>
-        </Item>
-    </Menu>
-);
-
-export default withRouter(NavBar);
+export default NavBar;

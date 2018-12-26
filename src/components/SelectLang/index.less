@@ -1,0 +1,30 @@
+@import '~antd/lib/style/themes/default.less';
+
+@header-hover-bg: rgba(0, 0, 0, 0.03);
+.menu {
+  :global(.anticon) {
+    margin-right: 8px;
+  }
+  :global(.ant-dropdown-menu-item) {
+    min-width: 160px;
+  }
+}
+
+.dropDown {
+  cursor: pointer;
+  vertical-align: top;
+  display: inline-block;
+  padding: 0 16px;
+  line-height: @layout-header-height;
+  &:hover {
+    background: @header-hover-bg;
+  }
+  > i {
+    font-size: 14px !important;
+    transform: none !important;
+    svg {
+      position: relative;
+      top: -1px;
+    }
+  }
+}

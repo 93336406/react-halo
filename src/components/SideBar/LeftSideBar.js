@@ -8,6 +8,7 @@ import {Menu, Layout, Switch, Drawer} from 'antd';
 import {Link} from 'dva/router';
 import pathToRegexp from 'path-to-regexp';
 import Icon from '../Icon';
+import intl from 'react-intl-universal';
 import './style/index.less';
 import logo from 'assets/images/logo.png';
 import logo_short from 'assets/images/logo_short.png';
@@ -63,13 +64,13 @@ class LeftSideBar extends PureComponent {
     getMenuItemPath = item => {
         const itemPath = this.conversionPath(item.path);
         const icon = getIcon(item.icon);
-        const {target, name} = item;
+        const {target,key} = item;
         // Is it a http link
         if (/^https?:\/\//.test(itemPath)) {
             return (
                 <a href={itemPath} target={target}>
                     {icon}
-                    <span>{name}</span>
+                    <span>{intl.get(key)}</span>
                 </a>
             );
         }
@@ -80,7 +81,7 @@ class LeftSideBar extends PureComponent {
                 replace={itemPath === this.props.location.pathname}
             >
                 {icon}
-                <span>{name}</span>
+                <span>{intl.get(key)}</span>
             </Link>
         );
     };
@@ -98,10 +99,10 @@ class LeftSideBar extends PureComponent {
                             item.icon ? (
                                 <span>
                   {getIcon(item.icon)}
-                                    <span>{item.name}</span>
+                                    <span>{intl.get(item.key)}</span>
                 </span>
                             ) : (
-                                item.name
+                                intl.get(item.key)
                             )
                         }
                         key={item.path}

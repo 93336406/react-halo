@@ -4,7 +4,6 @@ import $$ from 'cmn-utils';
 
 export default {
     namespace: 'login',
-
     state: {
         loggedIn: false,
         message: '',
@@ -37,7 +36,7 @@ export default {
             }
         },
         * logout(_, {put}) {
-            $$.removeStore('user');
+           yield $$.removeStore('user');
         }
     },
 

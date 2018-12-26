@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Layout } from 'antd';
+import intl from 'react-intl-universal';
 import BaseComponent from 'components/BaseComponent';
 const { Content } = Layout;
 
@@ -9,7 +10,7 @@ export default class EventMonitor extends BaseComponent {
   render() {
     return (
       <Layout className="full-layout">
-        <Content>事件监控</Content>
+        <Content>{intl.get("monitor.eventMonitor")}</Content>
       </Layout>
     );
   }
