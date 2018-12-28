@@ -104,6 +104,7 @@
         font-size: 12px;
         .first {
           color: #555;
+          font-weight: 700;
           font-size: 18px;
         }
         .icon {
@@ -125,5 +126,84 @@
     background-color: #fff;
     box-shadow: @shadow-1-down;
     border-radius: 4px;
+  }
+  &.gem {
+    background-color: #00bcd4;
+    > * {
+      color: #ffffff;
+    }
+  }
+  &.sun {
+    background-color: #ffc107;
+    > * {
+      color: #ffffff;
+    }
+  }
+  &.warmth {
+    background-color: #f44336;
+    > * {
+      color: #ffffff;
+    }
+  }
+  &.elegance {
+    background-color: #9575CD;
+    > * {
+      color: #ffffff;
+    }
+    .ant-breadcrumb-separator {
+      color: #bc9cff;
+    }
+    .navbar-nav {
+      .ant-breadcrumb {
+        .first {
+          color: #d3cdff;
+        }
+        .icon {
+          color: #d3cdff;
+        }
+        a {
+          color: #d3cdff;
+          &:hover {
+            color: tint(@primary-6);
+          }
+        }
+        > span:last-child {
+          color: #d3cdff;
+        }
+      }
+    }
+  }
+  &.youth {
+    background-color: #48c9a9;
+    > * {
+      color: #ffffff;
+    }
+  }
+  &.gem,
+  &.sun,
+  &.warmth,
+  &.youth {
+    .ant-breadcrumb-separator {
+      color: #ffffff;
+    }
+    .navbar-nav {
+      .ant-breadcrumb {
+        .first {
+          color: #ffffff;
+        }
+        .icon {
+          color: #ffffff;
+        }
+        a {
+          color: #ffffff;
+          &:hover {
+            color: tint(@primary-6);
+          }
+        }
+        > span:last-child {
+          color: #ffffff;
+        }
+      }
+    }
   }
 }

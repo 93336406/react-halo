@@ -9,10 +9,16 @@ export default class SelectLang extends PureComponent {
         localStorage.setItem("crux_local", key);
         window.location.reload();
     };
+    state = {
+        visible: false,
+    };
+    handleVisibleChange = visible => {
+        this.setState({visible});
+    };
 
     render() {
-        const {className} = this.props;
         const locales = ["en-US", "zh-CN"];
+        const {visible} = this.state;
         const selectedLang = localStorage.getItem("crux_local") || locales[0];
         const languageLabels = {
             "en-US": "English",
@@ -35,8 +41,8 @@ export default class SelectLang extends PureComponent {
             </Menu>
         );
         return (
-            <HeaderDropdown overlay={langMenu}>
-                <span className={cx("dropDown", className)}>
+            <HeaderDropdown overlay={langMenu} onVisibleChange={this.handleVisibleChange}>
+                <span className={cx("dropDown", {opened: visible})}>
                   <Icon type="global"/>
                 </span>
             </HeaderDropdown>

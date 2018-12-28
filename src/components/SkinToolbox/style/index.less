@@ -1,97 +1,75 @@
-@import "~antd/lib/style/themes/default.less";
-// 右侧皮肤设置面板
-.skin-toolbox {
-  z-index: 2;
-  position: fixed;
-  top: 157px;
-  right: 0px;
-  width: 230px;
-  user-select: none;
-  transition: right 0.3s;
-  &.skin-toolbox-close {
-    right: -230px;
-  }
-  .panel {
+@import '~antd/lib/style/themes/default.less';
+
+.content {
+  min-height: 100%;
+  background: #fff;
+  position: relative;
+  padding: 16px;
+  box-shadow: @shadow-1-down;
+}
+
+.blockChecbox {
+  display: flex;
+  .item {
+    margin-right: 16px;
     position: relative;
-    margin-bottom: 20px;
-    background-color: #ffffff;
-    border-radius: 2px;
-    border: 1px solid #ddd;
-    border-top: 0;
-    .panel-head {
-      position: relative;
-      cursor: pointer;
-      margin-right: 30px;
-      border: 1px solid #ddd;
-      background: #fafafa;
-      padding: 0 5px;
-      width: 274px;
-      height: 39px;
-      line-height: 35px;
-      right: 44px;
-      font-size: 14px;
-      .panel-icon {
-        font-size: 22px;
-        padding-right: 20px;
-        padding-left: 6px;
-        color: @primary-color;
-        i {
-          transition: all .8s;
-          transform: rotate(0deg);
-        }
-      }
-      &:hover .panel-icon i {
-        transform: rotate(-360deg);
-      }
-      .panel-title {
-        padding-left: 56px;
-        font-size: 14px;
-        font-weight: 600;
-        line-height: 42px;
-        color: #666;
-      }
-    }
-    .panel-body {
-      font-size: 13px;
-      .ant-tabs-small .ant-tabs-tab {
-        margin: 0;
-      }
-      .ant-tabs-tabpane {
-        padding: 0 20px 20px 20px;
-        .ant-checkbox-wrapper,
-        .ant-radio-wrapper {
-          display: block;
-          height: 30px;
-          line-height: 30px;
-        }
-        .ant-checkbox-wrapper {
-          margin-left: 0;
-        }
-        h4 {
-          font-size: 15px;
-          margin-bottom: 10px;
-          color: #333;
-        }
-        .ant-tag {
-          width: 166px;
-          text-align: center;
-        }
-      }
-    }
-    .panel-footer {
-      padding: 15px;
-      border-top: 1px solid #eee;
-      a {
-        display: block;
-        color: #fff;
-        background-color: @primary-color;
-        padding: 9px 12px;
-        font-size: 13px;
-        text-align: center;
-        &:hover {
-          background-color: @primary-5;
-        }
-      }
+    // box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+    border-radius: @border-radius-base;
+    cursor: pointer;
+    img {
+      width: 48px;
     }
   }
+  .selectIcon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    padding-top: 15px;
+    padding-left: 24px;
+    height: 100%;
+    color: @primary-color;
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
+
+.color_block {
+  width: 38px;
+  height: 22px;
+  margin: 4px 12px 4px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.title {
+  font-size: 14px;
+  color: @heading-color;
+  line-height: 22px;
+  margin-bottom: 12px;
+}
+
+.handle {
+  position: absolute;
+  top: 240px;
+  background: @primary-color;
+  width: 48px;
+  height: 48px;
+  right: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 0;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 4px 0 0 4px;
+}
+
+.productionHint {
+  font-size: 12px;
+  margin-top: 16px;
 }

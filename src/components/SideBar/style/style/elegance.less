@@ -1,0 +1,75 @@
+@menu-elegance-color: rgba(0, 0, 0, 0.85);
+@menu-elegance-bg: #ffffff;
+@menu-elegance-arrow-color: rgba(0, 0, 0, 0.85);
+@menu-elegance-item-selected-bg: #CCCCFF;
+@menu-elegance-highlight-color: #8468ff;
+
+@menu-prefix-cls: ~'ant-menu';
+.@{menu-prefix-cls} {
+  // sum theme
+  &&-elegance:not(&-horizontal) &-item-selected{
+    background-color: @menu-elegance-item-selected-bg;
+  }
+  &-sub {
+    color: @menu-elegance-color;
+    background: @menu-elegance-bg;
+    .@{menu-prefix-cls}-submenu-title {
+      &:hover {
+        color: @menu-elegance-highlight-color;
+      }
+      .@{menu-prefix-cls}-submenu-arrow {
+        opacity: .65;
+        transition: all .3s;
+        &:after,
+        &:before {
+          background: linear-gradient(to right, @menu-elegance-arrow-color, @menu-elegance-arrow-color);
+        }
+      }
+    }
+  }
+  &-elegance &-item:hover,
+  &-elegance &-item-active,
+  &-elegance &:not(&-inline) &-submenu-open,
+  &-elegance &-submenu-active,
+  &-elegance &-submenu-title:hover {
+    color: @menu-elegance-highlight-color;
+  }
+  &-elegance &-item:hover,
+  &-elegance &-item-active,
+  &-elegance &-submenu-active,
+  &-elegance &-submenu-open,
+  &-elegance &-submenu-selected,
+  &-elegance &-submenu-title:hover {
+    color: @menu-elegance-highlight-color;
+    .@{menu-prefix-cls}-submenu-arrow {
+      opacity: 1;
+      &:after,
+      &:before {
+        background: linear-gradient(to right, @menu-elegance-highlight-color, @menu-elegance-highlight-color);
+      }
+    }
+  }
+
+  &-elegance &-item-selected {
+    color: @menu-elegance-highlight-color;
+    > a,
+    > a:hover {
+      color: @menu-elegance-highlight-color;
+    }
+  }
+  &-elegance &-item {
+    > a:hover {
+      color: @menu-elegance-highlight-color;
+    }
+  }
+  &-elegance &:not(&-horizontal) &-item-selected {
+    background-color: @menu-elegance-item-selected-bg;
+  }
+  &-elegance &-item-selected,
+  &-elegance &-inline &-item-selected,
+  &-elegance &-inline &-selected {
+    &:after {
+      border-right-color: @menu-elegance-highlight-color;
+    }
+  }
+}

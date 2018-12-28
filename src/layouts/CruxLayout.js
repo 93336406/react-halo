@@ -23,15 +23,13 @@ const {Content, Header} = Layout;
 export default class CruxLayout extends React.PureComponent {
     constructor(props) {
         super(props);
+        this.defaultTheme = {
+            primarySkin: {key: "darkgrey", color: "#30363e"},
+            tabLayout: false
+        };
         this.getPageTitle = memoizeOne(this.getPageTitle);
         const user = $$.getStore('user', []);
-        const theme = $$.getStore('theme', {
-            leftSide: 'darkgrey', // 左边
-            navbar: 'light' // 顶部
-        });
-        if (!theme.layout) {
-            theme.layout = [];
-        }
+        const theme = $$.getStore('crux-theme', this.defaultTheme);
         this.state = {
             collapsedLeftSide: false,
             leftCollapsedWidth: 60,
@@ -126,17 +124,9 @@ export default class CruxLayout extends React.PureComponent {
         });
     };
 
-    /**
-     * 展开面包屑所在条中的多功能区
-     */
-    onExpandTopBar = () => {
-        this.setState({
-            expandTopBar: true
-        });
-    };
-
     onChangeTheme = theme => {
-        $$.setStore('theme', theme);
+        theme = theme || this.defaultTheme;
+        $$.setStore('crux-theme', theme);
         this.setState({
             theme
         });
@@ -179,7 +169,7 @@ export default class CruxLayout extends React.PureComponent {
                         onCollapse={this.onCollapseLeftSide}
                         onCollapseAll={this.onCollapseLeftSideAll}
                         location={location}
-                        theme={theme.leftSide}
+                        theme={theme.primarySkin.key}
                         flatMenu={flatMenu}
                         currentMenu={currentMenu}
                         menu={menu}
@@ -190,8 +180,8 @@ export default class CruxLayout extends React.PureComponent {
                             <NavBar
                                 collapsed={collapsedLeftSide}
                                 onCollapseLeftSide={this.onCollapseLeftSide}
-                                onExpandTopBar={this.onExpandTopBar}
-                                theme={theme.navbar}
+                                onChangeTheme={this.onChangeTheme}
+                                theme={theme}
                                 user={user}
                                 currentMenu={currentMenu}
                                 isMobile={isMobile}

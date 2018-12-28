@@ -1,0 +1,75 @@
+@menu-gem-color: rgba(0, 0, 0, 0.85);
+@menu-gem-bg: #ffffff;
+@menu-gem-arrow-color: rgba(0, 0, 0, 0.85);
+@menu-gem-item-selected-bg: #e6f7ff;
+@menu-gem-highlight-color: #00859d;
+
+@menu-prefix-cls: ~'ant-menu';
+.@{menu-prefix-cls} {
+  // gem theme
+  &&-gem:not(&-horizontal) &-item-selected{
+    background-color: @menu-gem-item-selected-bg;
+  }
+  &-sub {
+    color: @menu-gem-color;
+    background: @menu-gem-bg;
+    .@{menu-prefix-cls}-submenu-title {
+      &:hover {
+        color: @menu-gem-highlight-color;
+      }
+      .@{menu-prefix-cls}-submenu-arrow {
+        opacity: .65;
+        transition: all .3s;
+        &:after,
+        &:before {
+          background: linear-gradient(to right, @menu-gem-arrow-color, @menu-gem-arrow-color);
+        }
+      }
+    }
+  }
+  &-gem &-item:hover,
+  &-gem &-item-active,
+  &-gem &:not(&-inline) &-submenu-open,
+  &-gem &-submenu-active,
+  &-gem &-submenu-title:hover {
+    color: @menu-gem-highlight-color;
+  }
+  &-gem &-item:hover,
+  &-gem &-item-active,
+  &-gem &-submenu-active,
+  &-gem &-submenu-open,
+  &-gem &-submenu-selected,
+  &-gem &-submenu-title:hover {
+    color: @menu-gem-highlight-color;
+    .@{menu-prefix-cls}-submenu-arrow {
+      opacity: 1;
+      &:after,
+      &:before {
+        background: linear-gradient(to right, @menu-gem-highlight-color, @menu-gem-highlight-color);
+      }
+    }
+  }
+
+  &-gem &-item-selected {
+    color: @menu-gem-highlight-color;
+    > a,
+    > a:hover {
+      color: @menu-gem-highlight-color;
+    }
+  }
+  &-gem &-item {
+    > a:hover {
+      color: @menu-gem-highlight-color;
+    }
+  }
+  &-gem &:not(&-horizontal) &-item-selected {
+    background-color: @menu-gem-item-selected-bg;
+  }
+  &-gem &-item-selected,
+  &-gem &-inline &-item-selected,
+  &-gem &-inline &-selected {
+    &:after {
+      border-right-color: @menu-gem-highlight-color;
+    }
+  }
+}

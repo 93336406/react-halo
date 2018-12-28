@@ -12,6 +12,7 @@ import intl from 'react-intl-universal';
 import './style/index.less';
 import logo from 'assets/images/logo.png';
 import logo_short from 'assets/images/logo_short.png';
+
 const {Sider} = Layout;
 const SubMenu = Menu.SubMenu;
 
@@ -64,7 +65,7 @@ class LeftSideBar extends PureComponent {
     getMenuItemPath = item => {
         const itemPath = this.conversionPath(item.path);
         const icon = getIcon(item.icon);
-        const {target,key} = item;
+        const {target, key} = item;
         // Is it a http link
         if (/^https?:\/\//.test(itemPath)) {
             return (
@@ -168,21 +169,16 @@ class LeftSideBar extends PureComponent {
 
     render() {
         const {
-            fixed,
             theme,
             collapsed,
             onCollapse,
             onCollapseAll,
             leftCollapsedWidth,
-            showHeader,
             menu,
             isMobile
         } = this.props;
-
         const classnames = cx('sidebar-left', 'sidebar-default', {
-            affix: !!fixed,
             'sidebar-left-sm': collapsed,
-            'show-header': collapsed ? false : showHeader,
             'sidebar-left-close': leftCollapsedWidth === 0,
             [theme]: !!theme
         });
@@ -212,8 +208,10 @@ class LeftSideBar extends PureComponent {
                 trigger={null}
             >
                 <div className="sidebar-left-content">
-                    <header className="sidebar-header">
-                        {collapsed ? (<img style={{width:"36px",height:"36px",borderRadius:"36px"}} src={logo_short} alt="logo"/>) : (<img src={logo} alt="logo"/>)}
+                    <header className={cx("sidebar-header", theme)}>
+                        {collapsed ? (
+                            <img style={{width: "36px", height: "36px", borderRadius: "36px"}} src={logo_short}
+                                 alt="logo"/>) : (<img src={logo} alt="logo"/>)}
                     </header>
                     <Menu
                         inlineCollapsed={collapsed}

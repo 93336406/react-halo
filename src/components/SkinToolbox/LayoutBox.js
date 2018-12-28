@@ -1,26 +1,19 @@
 import React from 'react';
-import { Checkbox } from 'antd';
-const CheckGroup = Checkbox.Group;
+import {List, Switch} from 'antd';
 
 /**
  * 几种常用布局
  */
-export default ({ theme, onChange }) => (
-  <CheckGroup onChange={onChange} value={theme.layout}>
-    <Checkbox className="fixedHeader" value="fixedHeader">
-      固定头部
-    </Checkbox>
-    <Checkbox className="fixedSidebar" value="fixedSidebar">
-      固定边栏
-    </Checkbox>
-    <Checkbox className="tabLayout" value="tabLayout">
-      标签模式
-    </Checkbox>
-    <Checkbox className="fixedBreadcrumbs" value="fixedBreadcrumbs">
-      固定面包屑
-    </Checkbox>
-    <Checkbox className="hidedBreadcrumbs" value="hidedBreadcrumbs">
-      隐藏面包屑
-    </Checkbox>
-  </CheckGroup>
+export default ({theme, onChange}) => (
+    <List.Item
+        actions={[
+            <Switch
+                size="small"
+                checked={theme.tabLayout}
+                onChange={checked => onChange(checked)}
+            />
+        ]}
+    >
+        页签模式
+    </List.Item>
 );

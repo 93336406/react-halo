@@ -1,95 +1,84 @@
 import './style/index.less';
-import React, { Component } from 'react';
+import React, {PureComponent} from 'react';
+import ReactDOM from 'react-dom';
+import {Divider, Button} from 'antd';
 import cx from 'classnames';
 import Icon from '../Icon';
-import { Tabs } from 'antd';
 import $$ from 'cmn-utils';
-import SideBarBox from './SideBarBox';
-import NavBarBox from './NavBarBox';
-import LayoutBox from "./LayoutBox";
-const TabPane = Tabs.TabPane;
+import HeaderDropdown from '../HeaderDropdown';
+import ThemeColor from './ThemeColor';
+import LayoutBox from './LayoutBox';
+
+const Body = ({children, title, style}) => (
+    <div
+        style={{
+            ...style,
+            marginBottom: 24,
+        }}
+    >
+        <h3 className="title">{title}</h3>
+        {children}
+    </div>
+);
 
 /**
  * 设置皮肤的右侧滑动的面板
  */
-class SkinToolbox extends Component {
-  state = {
-    collapsed: true,
-  }
+class SkinToolbox extends PureComponent {
+    state = {
+        visible: false,
+    };
+    changeSetting = (key, value) => {
+        var props = {...this.props.theme};
+        props[key] = value;
+        this.props.onChangeTheme(props);
+    };
+    clearThemeStore = () => {
+        $$.removeStore('crux-theme');
+        this.props.onChangeTheme(null);
+        this.popover.click();
+    };
+    handleVisibleChange = visible => {
+        this.setState({visible});
+    };
 
-  onChangeSideColor = e => {
-    this.props.onChangeTheme({
-      ...this.props.theme,
-      leftSide: e.target.value
-    });
-  };
-
-  onChangeNavBarColor = e => {
-    this.props.onChangeTheme({
-      ...this.props.theme,
-      navbar: e.target.value
-    });
-  };
-
-  onChangeLayout = value => {
-    this.props.onChangeTheme({
-      ...this.props.theme,
-      layout: value
-    });
-  }
-
-  clearThemeStore = _ => {
-    $$.removeStore('theme');
-  }
-
-  /**
-   * 切换皮肤设置面板
-   */
-  toggleSkinToolbox = _ => {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
-  };
-
-  render() {
-    const { theme } = this.props;
-
-    const classnames = cx('skin-toolbox', {
-      'skin-toolbox-close': this.state.collapsed
-    });
-
-    return (
-      <div className={classnames}>
-        <div className="panel">
-          <div className="panel-head" onClick={this.toggleSkinToolbox}>
-            <span className="panel-icon">
-              <Icon type="gear" />
-            </span>
-            <span className="panel-title">设置您的主题</span>
-          </div>
-          <div className="panel-body">
-            <Tabs defaultActiveKey="1" size="small">
-              <TabPane tab="导航条" key="navbar">
-                <h4>导航条样式</h4>
-                <NavBarBox theme={theme} onChange={this.onChangeNavBarColor} />
-              </TabPane>
-              <TabPane tab="边栏" key="sidebar">
-                <h4>边栏样式</h4>
-                <SideBarBox theme={theme} onChange={this.onChangeSideColor} />
-              </TabPane>
-              <TabPane tab="布局" key="misc">
-                <h4>布局样式</h4>
-                <LayoutBox theme={theme} onChange={this.onChangeLayout} />
-              </TabPane>
-            </Tabs>
-          </div>
-          <div className="panel-footer">
-            <a className="btn-primary" onClick={this.clearThemeStore}>清理存储</a>
-          </div>
-        </div>
-      </div>
-    );
-  }
+    render() {
+        const {theme} = this.props;
+        const {visible} = this.state;
+        const skin = (
+            <div className="content">
+                <ThemeColor
+                    title="主题色"
+                    theme={theme}
+                    onChange={theme => this.changeSetting('primarySkin', theme)}
+                />
+                <Divider/>
+                <Body title="布局">
+                <LayoutBox
+                    theme={theme}
+                    onChange={theme => this.changeSetting('tabLayout', theme)}
+                />
+                </Body>
+                <Button block onClick={this.clearThemeStore}>
+                    恢复默认设置
+                </Button>
+            </div>
+        );
+        return (
+            <HeaderDropdown
+                overlay={skin}
+                overlayClassName={cx("popover")}
+                visible={visible}
+                onVisibleChange={this.handleVisibleChange}
+                placement={"bottomCenter"}
+                ref={node => (this.popover = ReactDOM.findDOMNode(node))}
+            >
+                <span className={cx("dropDown", {opened: visible})}>
+                  <Icon type="skin" antd/>
+                </span>
+            </HeaderDropdown>
+        );
+    }
 }
 
 export default SkinToolbox;
