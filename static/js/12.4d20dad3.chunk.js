@@ -1,2 +1,0 @@
-webpackJsonp([12],{887:function(e,t,a){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var u=a(354);t.default=Object(u.a)({namespace:"subRoute"})}});
-//# sourceMappingURL=12.4d20dad3.chunk.js.map
