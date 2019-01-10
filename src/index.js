@@ -59,9 +59,10 @@ request.config(config.request);
 
 // 使用mock数据
 // -> Developer mock data
-if (process.env.NODE_ENV === 'development') {
-    require('./__mocks');
-}
+require('./__mocks');
+// if (process.env.NODE_ENV === 'development') {
+//     require('./__mocks');
+// }
 
 // -> loading
 dynamic.setDefaultLoadingComponent(() => config.router.loading);
