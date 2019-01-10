@@ -1,4 +1,5 @@
 {
+  "loading":"加载中...",
   "workspace": "工作区",
   "workspaceTip": "请输入工作区,示例:cddev",
   "login": "登录",

@@ -32,9 +32,12 @@ export default class GlobalAvatarUser extends PureComponent {
     handleVisibleChange = visible => {
         this.setState({visible});
     };
+    handleClick = () => {
+        this.setState({visible: false});
+    };
     getMenuItem = (menus) => {
         return (
-            <Menu className={cx('account-menu')} selectedKeys={[]}>
+            <Menu onClick={this.handleClick} className={cx('account-menu')} selectedKeys={[]}>
                 {
                     menus.map((m, idx) => {
                         if (typeof m === "string") {
@@ -65,7 +68,10 @@ export default class GlobalAvatarUser extends PureComponent {
         const {visible} = this.state;
         const {user} = this.props;
         return (
-            <HeaderDropdown overlay={this.getMenuItem(userMenuData)} onVisibleChange={this.handleVisibleChange}>
+            <HeaderDropdown
+                overlay={this.getMenuItem(userMenuData)}
+                onVisibleChange={this.handleVisibleChange}
+            >
                 <span className={cx("dropDown", {opened: visible})}>
                     <Badge dot>
                         <Avatar icon="user" size="small">

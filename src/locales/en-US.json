@@ -1,4 +1,5 @@
 {
+  "loading":"Loading...",
   "workspace": "workspace",
   "workspaceTip": "Please enter your workspace,eg:cddev",
   "login": "sign in",

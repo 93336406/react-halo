@@ -58,11 +58,10 @@ app.use({onError: config.exception.global});
 request.config(config.request);
 
 // 使用mock数据
-require('./__mocks');
 // -> Developer mock data
-// if (process.env.NODE_ENV === 'development') {
-//     require('./__mocks');
-// }
+if (process.env.NODE_ENV === 'development') {
+    require('./__mocks');
+}
 
 // -> loading
 dynamic.setDefaultLoadingComponent(() => config.router.loading);
@@ -79,8 +78,6 @@ app.router(({history, app}) => (
 
 // -> Start
 app.start('#app');
-console.log(app);
-console.log(intl.get("dashboard"));
 // export global
 export default {
     app,

@@ -1,18 +1,18 @@
 /**
  * Created by esong on 2018/12/19.
  */
-import React, {Suspense} from 'react';
+import React, {Suspense, Fragment} from 'react';
 import {connect} from 'dva';
-import {Layout} from 'antd';
+import {Layout, message} from 'antd';
 import {Switch, routerRedux} from 'dva/router';
 import DocumentTitle from 'react-document-title';
-import memoizeOne from 'memoize-one';
 import intl from 'react-intl-universal';
 import {LeftSideBar} from 'components/SideBar';
 import NavBar from 'components/NavBar';
 import PageLoading from 'components/Loading';
 import pathToRegexp from 'path-to-regexp';
 import {enquireIsMobile} from '@/utils/enquireScreen';
+import TabsLayout from './TabsLayout';
 import './styles/basic.less';
 import $$ from 'cmn-utils';
 import cx from 'classnames';
@@ -27,7 +27,6 @@ export default class CruxLayout extends React.PureComponent {
             primarySkin: {key: "darkgrey", color: "#30363e"},
             tabLayout: false
         };
-        this.getPageTitle = memoizeOne(this.getPageTitle);
         const user = $$.getStore('user', []);
         const theme = $$.getStore('crux-theme', this.defaultTheme);
         this.state = {
@@ -35,39 +34,15 @@ export default class CruxLayout extends React.PureComponent {
             leftCollapsedWidth: 60,
             theme,
             user,
+            flatMenu: [],
             currentMenu: {},
             isMobile: false
         };
-
+        const loading = message.loading(intl.get("loading"), 0);
         props.dispatch({
-            type: 'global/getMenu'
+            type: 'global/getMenu',
+            loading: loading
         });
-    }
-
-    componentDidMount() {
-        this.unregisterEnquire = enquireIsMobile(ismobile => {
-            const {isMobile} = this.state;
-            if (isMobile !== ismobile) {
-                this.setState({
-                    isMobile: ismobile
-                });
-            }
-        });
-    }
-
-    componentWillMount() {
-        // 检查有户是否登录
-        const user = $$.getStore('user');
-        if (!user) {
-            this.props.dispatch(routerRedux.replace('/sign/login'));
-        } else {
-
-        }
-    }
-
-    componentWillUnmount() {
-        // 清理监听
-        this.unregisterEnquire();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -75,9 +50,12 @@ export default class CruxLayout extends React.PureComponent {
             nextProps.location.pathname !== this.props.location.pathname ||
             nextProps.global.flatMenu !== this.props.global.flatMenu
         ) {
-            this.setState({
-                currentMenu: this.getCurrentMenu(nextProps) || {}
-            });
+            var menu = this.getCurrentMenu(nextProps);
+            if (menu) {
+                this.setState({
+                    currentMenu: menu
+                });
+            }
         }
     }
 
@@ -90,11 +68,34 @@ export default class CruxLayout extends React.PureComponent {
         return menu;
     }
 
+    componentDidMount() {
+        this.unregisterEnquire = enquireIsMobile(ismobile => {
+            const {isMobile} = this.state;
+            if (isMobile !== ismobile) {
+                this.setState({
+                    isMobile: ismobile
+                });
+            }
+        });
+        // 检查有户是否登录
+        const user = $$.getStore('user');
+        if (!user) {
+            this.props.dispatch(routerRedux.replace('/sign/login'));
+        } else {
+            this.setState({menu: this.props.global.menu});
+        }
+    }
+
     getMeunMatchKeys = (flatMenu, path) => {
         return flatMenu.filter(item => {
             return pathToRegexp(item.path).test(path);
         });
     };
+
+    componentWillUnmount() {
+        // 清理监听
+        this.unregisterEnquire();
+    }
 
     /**
      * 顶部左侧菜单图标收缩控制
@@ -104,12 +105,8 @@ export default class CruxLayout extends React.PureComponent {
             this.state.leftCollapsedWidth === 0
                 ? true
                 : !this.state.collapsedLeftSide;
-        const collapsedRightSide =
-            this.state.collapsedRightSide || !collapsedLeftSide;
-
         this.setState({
             collapsedLeftSide,
-            collapsedRightSide,
             leftCollapsedWidth: 60
         });
     };
@@ -132,21 +129,6 @@ export default class CruxLayout extends React.PureComponent {
         });
     };
 
-    getContext() {
-        const {location} = this.props;
-        return {
-            location
-        };
-    }
-
-    getPageTitle = (currentMenu) => {
-        if (!currentMenu || !currentMenu.name) {
-            return config.htmlTitle;
-        }
-        const pageName = intl.get(currentMenu.key);
-        return `${pageName} - ${config.htmlTitle}`;
-    };
-
     render() {
         const {
             collapsedLeftSide,
@@ -157,11 +139,10 @@ export default class CruxLayout extends React.PureComponent {
             isMobile
         } = this.state;
         const {routerData, location, global} = this.props;
-        const {menu, flatMenu} = global;
         const {childRoutes} = routerData;
-        const classnames = cx('basic-layout', 'full-layout', 'fixed');
+        const {menu, flatMenu} = global;
         const layout = (
-            <Layout className={classnames}>
+            <Layout className={cx('basic-layout', 'full-layout', 'fixed')}>
                 <Layout>
                     <LeftSideBar
                         collapsed={collapsedLeftSide}
@@ -171,32 +152,47 @@ export default class CruxLayout extends React.PureComponent {
                         location={location}
                         theme={theme.primarySkin.key}
                         flatMenu={flatMenu}
-                        currentMenu={currentMenu}
                         menu={menu}
+                        currentMenu={currentMenu}
                         isMobile={isMobile}
                     />
                     <Content>
-                        <Header className="fixed-header">
-                            <NavBar
+                        {theme.tabLayout ? (
+                            <TabsLayout
+                                childRoutes={childRoutes}
+                                location={location}
                                 collapsed={collapsedLeftSide}
                                 onCollapseLeftSide={this.onCollapseLeftSide}
                                 onChangeTheme={this.onChangeTheme}
+                                flatMenu={flatMenu}
                                 theme={theme}
                                 user={user}
-                                currentMenu={currentMenu}
-                                isMobile={isMobile}
                             />
-                        </Header>
-                        <Content className="router-page">
-                            <Switch>{childRoutes}</Switch>
-                        </Content>
+                        ) : (
+                            <Fragment>
+                                <Header className="fixed-header">
+                                    <NavBar
+                                        collapsed={collapsedLeftSide}
+                                        onCollapseLeftSide={this.onCollapseLeftSide}
+                                        onChangeTheme={this.onChangeTheme}
+                                        theme={theme}
+                                        user={user}
+                                        currentMenu={currentMenu}
+                                        isMobile={isMobile}
+                                    />
+                                </Header>
+                                < Content className="router-page">
+                                    <Switch>{childRoutes}</Switch>
+                                </Content>
+                            </Fragment>
+                        )}
                     </Content>
                 </Layout>
             </Layout>
         );
         return (
             <React.Fragment>
-                <DocumentTitle title={this.getPageTitle(currentMenu)}>
+                <DocumentTitle title={config.htmlTitle}>
                     {layout}
                 </DocumentTitle>
                 <Suspense fallback={<PageLoading/>}/>

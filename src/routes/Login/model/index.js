@@ -1,5 +1,6 @@
 import {routerRedux} from 'dva/router';
 import {login} from '../service';
+import pathToRegexp from 'path-to-regexp';
 import $$ from 'cmn-utils';
 
 export default {
@@ -13,7 +14,8 @@ export default {
     subscriptions: {
         setup({history, dispatch}) {
             return history.listen(({pathname}) => {
-                if (pathname.indexOf('/sign/login') !== -1) {
+                let match = pathToRegexp('/sign/login').test(pathname);
+                if (match) {
                     dispatch({
                         type: 'logout'
                     });
@@ -36,7 +38,7 @@ export default {
             }
         },
         * logout(_, {put}) {
-           yield $$.removeStore('user');
+            yield $$.removeStore('user');
         }
     },
 

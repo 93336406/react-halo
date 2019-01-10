@@ -11,12 +11,13 @@ const { Content, Header } = Layout;
 export default class extends BaseComponent {
   render() {
     const {routerData} = this.props;
+    console.log(this.props);
     const {childRoutes} = routerData;
     return (
       <Layout className="full-layout page level-route-page">
         <Header>
-          <Link className="sub-route-link" to="/authorization/base" name="基本信息">{intl.get("authorization.user.base")}</Link>
-          <Link className="sub-route-link" to="/authorization/group" name="用户组">{intl.get("authorization.user.group")}</Link>
+          <Link className="sub-route-link" to="/authorization/user/base" name="基本信息">{intl.get("authorization.user.base")}</Link>
+          <Link className="sub-route-link" to="/authorization/user/group" name="用户组">{intl.get("authorization.user.group")}</Link>
         </Header>
         <Content>
           <Switch>{childRoutes}</Switch> 

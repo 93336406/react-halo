@@ -37,10 +37,6 @@ export const getMeunMatchKeys = (flatMenu, path) => {
 };
 
 class LeftSideBar extends PureComponent {
-    static defaultProps = {
-        fixed: true,
-        theme: ''
-    };
 
     constructor(props) {
         super(props);
@@ -177,7 +173,7 @@ class LeftSideBar extends PureComponent {
             menu,
             isMobile
         } = this.props;
-        const classnames = cx('sidebar-left', 'sidebar-default', {
+        const classNames = cx('sidebar-left', 'sidebar-default', {
             'sidebar-left-sm': collapsed,
             'sidebar-left-close': leftCollapsedWidth === 0,
             [theme]: !!theme
@@ -198,7 +194,7 @@ class LeftSideBar extends PureComponent {
 
         const siderBar = (
             <Sider
-                className={classnames}
+                className={classNames}
                 width={230}
                 collapsedWidth={leftCollapsedWidth + 0.1}
                 collapsible

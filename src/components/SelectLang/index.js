@@ -41,7 +41,11 @@ export default class SelectLang extends PureComponent {
             </Menu>
         );
         return (
-            <HeaderDropdown overlay={langMenu} onVisibleChange={this.handleVisibleChange}>
+            <HeaderDropdown
+                placement={"bottomLeft"}
+                overlay={langMenu}
+                onVisibleChange={this.handleVisibleChange}
+            >
                 <span className={cx("dropDown", {opened: visible})}>
                   <Icon type="global"/>
                 </span>

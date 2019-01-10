@@ -1,0 +1,181 @@
+@import "~antd/lib/style/themes/default.less";
+
+@header-hover-bg: rgba(0, 0, 0, 0.03);
+.tabs-layout {
+  .layout-tabs-content {
+    background: #fff;
+    > .ant-tabs-bar {
+      margin: 0;
+      padding: 0;
+      box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
+      position: relative;
+      z-index: 1;
+      border-bottom-color: transparent;
+      .ant-tabs-nav-container {
+        display: flex;
+        height: @layout-header-height;
+        align-items: center;
+      }
+      .ant-tabs-tab {
+        border: 1px solid transparent;
+        background-color: transparent;
+        line-height: @layout-header-height;
+        &.ant-tabs-tab-active {
+          padding-bottom: 0;
+          background-color: @header-hover-bg;
+        }
+      }
+      .ant-tabs-extra-content {
+        float: none !important;
+        .collapse-left {
+          float: left;
+        }
+        .nav-tool-box {
+          float: right;
+          margin: 0 15px 0 0;
+          li {
+            float: left;
+          }
+        }
+        .tab-tool {
+          line-height: @layout-header-height;
+          display: inline-block;
+          padding: 0 4px;
+          cursor: pointer;
+          &:hover {
+            background: @header-hover-bg;
+          }
+        }
+        .navbar-branding {
+          position: relative;
+          overflow: hidden;
+          float: left;
+          height: @layout-header-height;
+          line-height: @layout-header-height;
+          margin-right: 10px;
+          background-color: transparent;
+          transition: all 0.2s ease;
+          // 左侧导航收缩按钮
+          .toggle_sidemenu_l {
+            font-size: 20px;
+            height: @layout-header-height;
+            cursor: pointer;
+            transition: all 0.3s, padding 0s;
+            padding: ~'calc((@{layout-header-height} - 20px) / 2)' 24px;
+            &:hover {
+              background: @header-hover-bg;
+            }
+          }
+        }
+      }
+      .ant-tabs-ink-bar {
+        top: 2px;
+        height: 4px;
+        visibility: visible;
+      }
+    }
+    > .ant-tabs-content {
+      position: relative;
+      height: ~'calc(100% - 64px)';
+      overflow: hidden;
+    }
+  }
+}
+
+.tabs-layout {
+  &.dark .layout-tabs-content,
+  &.light .layout-tabs-content,
+  &.darkgrey .layout-tabs-content {
+    > .ant-tabs-bar {
+      .ant-tabs-ink-bar {
+        top: auto;
+        bottom: 0;
+      }
+    }
+  }
+  &.gem .layout-tabs-content {
+    > .ant-tabs-bar {
+      .ant-tabs-tab {
+        &.ant-tabs-tab-active {
+          color: #00bcd4;
+        }
+        &:hover {
+          color: #00bcd4;
+        }
+      }
+      .ant-tabs-ink-bar {
+        background: #00859d;
+      }
+    }
+  }
+  &.sun .layout-tabs-content {
+    > .ant-tabs-bar {
+      .ant-tabs-tab {
+        &.ant-tabs-tab-active {
+          color: #ae8107;
+        }
+        &:hover {
+          color: #ae8107;
+        }
+      }
+      .ant-tabs-ink-bar {
+        background: #ae8107;
+      }
+    }
+  }
+  &.warmth .layout-tabs-content {
+    > .ant-tabs-bar {
+      .ant-tabs-tab {
+        &.ant-tabs-tab-active {
+          color: #f44336;
+        }
+        &:hover {
+          color: #f44336;
+        }
+      }
+      .ant-tabs-ink-bar {
+        background: #9a2c2a;
+      }
+    }
+  }
+  &.elegance .layout-tabs-content {
+    > .ant-tabs-bar {
+      .ant-tabs-tab {
+        &.ant-tabs-tab-active {
+          color: #8468ff;
+        }
+        &:hover {
+          color: #8468ff;
+        }
+      }
+      .ant-tabs-ink-bar {
+        background: #8468ff;
+      }
+    }
+  }
+  &.youth .layout-tabs-content {
+    > .ant-tabs-bar {
+      .ant-tabs-tab {
+        &.ant-tabs-tab-active {
+          color: #009966;
+        }
+        &:hover {
+          color: #009966;
+        }
+      }
+      .ant-tabs-ink-bar {
+        background: #009966;
+      }
+    }
+  }
+}
+
+.basic-layout {
+  &.fixed {
+    .tabs-layout .layout-tabs-content {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+    }
+  }
+}

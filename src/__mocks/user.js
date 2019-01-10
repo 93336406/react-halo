@@ -42,6 +42,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
             {
                 name: '仪表盘',
                 icon: 'dashboard',
+                isHome: true,
                 key: 'dashboard',
                 path: '/dashboard',
             },

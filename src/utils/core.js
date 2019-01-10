@@ -62,7 +62,7 @@ export const createRoute = (app, routesConfig) => {
     if (indexRoute) {
         return [
             <Redirect key={path + '_redirect'} exact from={path} to={indexRoute}/>,
-            <Route {...routeProps} />
+            <Route  {...routeProps} />
         ];
     }
 

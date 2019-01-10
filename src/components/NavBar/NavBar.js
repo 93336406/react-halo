@@ -46,7 +46,7 @@ class NavBar extends PureComponent {
                             <Link to="/">{intl.get("home")}</Link>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
-                            {currentMenu.name ? intl.get(currentMenu.key) : ""}
+                            {currentMenu.key ? intl.get(currentMenu.key) : ""}
                         </Breadcrumb.Item>
                     </Breadcrumb>
                 </div>

@@ -37,7 +37,7 @@ export function enquireScreen(query, cb, handlers) {
     }
   };
   enquireJS.register(query, handler);
-  return _ => enquireJS.unregister(query);
+  return () => enquireJS.unregister(query);
 }
 
 export default enquireJS;
